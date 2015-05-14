@@ -4,7 +4,7 @@ var exec = require( 'child_process' ).exec;
 var moduleDir = '../../ajax';
 
 gulp.task( 'deploy', [ 'plato' ], function( done ) {
-    return exec( 'cp -R ' + moduleDir + '/coverage ' + moduleDir + '/plato ./',
+    return exec( 'cp -R ' + moduleDir + '/coverage ',
     function( err, stdout, stderr ) {
         exec( 'git push origin gh-pages', function() {
             done();
