@@ -1,5 +1,6 @@
 {
   "devDependencies": {
-    "gulp": "^3.8.11"
+    "gulp": "^3.8.11",
+    "plato": "^1.4.0"
   }
 }
