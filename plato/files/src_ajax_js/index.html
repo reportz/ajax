@@ -123,11 +123,11 @@
     };
 
     $public.put = function put( url, data ) {
-      return $private.promises( &#039;PUT&#039;, url, data );
+      return $private.XHRConnection( &#039;PUT&#039;, url, data );
     };
 
     $public.delete = function del( url, data ) {
-      return $private.promises( &#039;DELETE&#039;, url, data );
+      return $private.XHRConnection( &#039;DELETE&#039;, url, data );
     };
 
     $private.XHRConnection = function XHRConnection( type, url, data ) {
