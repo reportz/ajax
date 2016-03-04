@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">75.87</p>
+      <p class="stat">75.35</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">126</p>
+      <p class="stat">133</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">32.44</p>
+      <p class="stat">37.55</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.13</p>
+      <p class="stat">1.20</p>
     </div>
   </div>
 </div>
@@ -114,12 +114,8 @@
       always: function() {},
 
       // @deprecated
-      done: function() {
-        console.warn(&#039;`done` is deprecated and will be removed in v2.0.0. Use `then` instead.&#039;);
-      },
-      error: function() {
-        console.warn(&#039;`error` is deprecated and will be removed in v2.0.0. Use `catch` instead.&#039;);
-      }
+      done: function() {},
+      error: function() {}
     };
 
     $public.get = function get( url ) {
@@ -166,7 +162,6 @@
           // @deprecated
           $private.methods.error
             .apply( $private.methods, $private.parseResponse( xhr ) );
-
         }
       }
     };
@@ -180,17 +175,29 @@
 
     $private.promises = function promises() {
       var allPromises = {};
-      Object.keys( $private.methods ).forEach(function( promise ) {
-        allPromises[ promise ] = $private.generatePromise.call( this, promise );
+      Object.keys( $private.methods ).forEach(function( method ) {
+        allPromises[ method ] = $private.generatePromise.call( this, method );
       }, this );
       return allPromises;
     };
 
     $private.generatePromise = function generatePromise( method ) {
       return function( callback ) {
+        $private.generateDeprecatedMessage(method);
         $private.methods[ method ] = callback;
         return this;
       };
+    };
+
+    $private.generateDeprecatedMessage = function generateDeprecatedMessage(method) {
+      var deprecatedMessage = &#039;@fdaciuk/ajax: `%s` is deprecated and will be removed in v2.0.0. Use `%s` instead.&#039;;
+      switch (method) {
+        case &#039;done&#039;:
+          console.warn(deprecatedMessage, &#039;done&#039;, &#039;then&#039;);
+          break;
+        case &#039;error&#039;:
+          console.warn(deprecatedMessage, &#039;error&#039;, &#039;catch&#039;);
+      }
     };
 
     $private.objectToQueryString = function objectToQueryString( data ) {
