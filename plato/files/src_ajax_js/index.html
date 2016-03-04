@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">75.35</p>
+      <p class="stat">74.84</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">133</p>
+      <p class="stat">161</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">37.55</p>
+      <p class="stat">45.43</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.20</p>
+      <p class="stat">1.48</p>
     </div>
   </div>
 </div>
@@ -93,20 +93,29 @@
   &#039;use strict&#039;;
   /* istanbul ignore next */
   if( typeof define === &#039;function&#039; &amp;&amp; define.amd ) {
-    define( &#039;Ajax&#039;, factory );
+    define( &#039;ajax&#039;, factory );
   }
   else if( typeof exports === &#039;object&#039; ) {
     exports = module.exports = factory();
   }
   else {
     root.Ajax = factory();
+    root.ajax = factory();
   }
 })(this, function() {
   &#039;use strict&#039;;
 
-  function Ajax() {
+  function Ajax(options) {
     var $public = {};
     var $private = {};
+
+    if(this !== undefined) {
+      console.warn(&#039;Instance with `new` is deprecated. This will be removed in `v2.0.0` version.&#039;);
+    }
+
+    if(this instanceof Ajax) {
+      console.warn(&#039;Ajax constructor is deprecated. This will be removed in `v2.0.0`. Use ajax (lowercase version) without `new` keyword instead&#039;);
+    }
 
     $private.methods = {
       then: function() {},
@@ -118,30 +127,49 @@
       error: function() {}
     };
 
+    options = options || {};
+
     $public.get = function get( url ) {
-      return $private.XHRConnection( &#039;GET&#039;, url, null );
+      return $private.XHRConnection( &#039;GET&#039;, url, null, options );
     };
 
     $public.post = function post( url, data ) {
-      return $private.XHRConnection( &#039;POST&#039;, url, data );
+      return $private.XHRConnection( &#039;POST&#039;, url, data, options );
     };
 
     $public.put = function put( url, data ) {
-      return $private.XHRConnection( &#039;PUT&#039;, url, data );
+      return $private.XHRConnection( &#039;PUT&#039;, url, data, options );
     };
 
     $public.delete = function del( url, data ) {
-      return $private.XHRConnection( &#039;DELETE&#039;, url, data );
+      return $private.XHRConnection( &#039;DELETE&#039;, url, data, options );
     };
 
-    $private.XHRConnection = function XHRConnection( type, url, data ) {
+    $private.XHRConnection = function XHRConnection( type, url, data, options ) {
       var xhr = new XMLHttpRequest();
-      var contentType = &#039;application/x-www-form-urlencoded&#039;;
       xhr.open( type, url || &#039;&#039;, true );
-      xhr.setRequestHeader( &#039;Content-Type&#039;, contentType );
+      $private.setHeaders(xhr, options.headers);
       xhr.addEventListener( &#039;readystatechange&#039;, $private.ready, false );
       xhr.send( $private.objectToQueryString( data ) );
       return $private.promises();
+    };
+
+    $private.setHeaders = function setHeaders(xhr, headers) {
+      headers = headers || {};
+
+      if(!$private.hasContentType(headers)) {
+        headers[&#039;Content-Type&#039;] = &#039;application/x-www-form-urlencoded&#039;;
+      }
+
+      Object.keys(headers).forEach(function(name) {
+        xhr.setRequestHeader(name, headers[name]);
+      });
+    };
+
+    $private.hasContentType = function hasContentType(headers) {
+      return Object.keys(headers).some(function(name) {
+        return name.toLowerCase() === &#039;content-type&#039;;
+      });
     };
 
     $private.ready = function ready() {
