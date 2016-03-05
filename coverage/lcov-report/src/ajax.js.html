@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>83/83</span>
+        <span class='fraction'>81/81</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>28/28</span>
+        <span class='fraction'>27/27</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>83/83</span>
+        <span class='fraction'>81/81</span>
       </div>
       <div class='fl pad1y'>
         <span class="strong">2 statements, 3 branches</span>
@@ -223,7 +223,16 @@
 174
 175
 176
-177</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
@@ -241,22 +250,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
 <span class="cline-any cline-yes">15×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">15×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -264,19 +267,34 @@
 <span class="cline-any cline-yes">17×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">19×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">1×</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
-<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">68×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">17×</span>
@@ -416,16 +434,25 @@
   'use strict'
 &nbsp;
   function Ajax (options) {
-    var $public = {}
-    var $private = {}
-&nbsp;
     if (this !== undefined) {
-      console.warn('Instance with `new` is deprecated. This will be removed in `v2.0.0` version.')
+      console.warn([
+        'Instance with `new` is deprecated. ',
+        'This will be removed in `v2.0.0` version.'
+      ].join(''))
     }
 &nbsp;
     if (this instanceof Ajax) {
-      console.warn('Ajax constructor is deprecated. This will be removed in `v2.0.0`. Use ajax (lowercase version) without `new` keyword instead')
+      console.warn([
+        'Ajax constructor is deprecated. This will be removed in ',
+        '`v2.0.0`. Use ajax (lowercase version) without `new` ',
+        'keyword instead'
+      ].join(''))
     }
+&nbsp;
+    options = options || {}
+&nbsp;
+    var $public = {}
+    var $private = {}
 &nbsp;
     $private.methods = {
       then: function () {},
@@ -434,26 +461,26 @@
 &nbsp;
       // @deprecated
       done: function () {},
+      // @deprecated
       error: function () {}
     }
 &nbsp;
-    options = options || {}
-&nbsp;
-    $public.get = function get (url) {
-      return $private.XHRConnection('GET', url, null, options)
+    $private.maybeData = function maybeData (data) {
+      return data || null
     }
 &nbsp;
-    $public.post = function post (url, data) {
-      return $private.XHRConnection('POST', url, data, options)
-    }
+    $private.httpMethods = ['get', 'post', 'put', 'delete']
 &nbsp;
-    $public.put = function put (url, data) {
-      return $private.XHRConnection('PUT', url, data, options)
-    }
-&nbsp;
-    $public.delete = function del (url, data) {
-      return $private.XHRConnection('DELETE', url, data, options)
-    }
+    $private.httpMethods.forEach(function (method) {
+      $public[method] = function (url, data) {
+        return $private.XHRConnection(
+          method,
+          url,
+          $private.maybeData(data),
+          options
+        )
+      }
+    })
 &nbsp;
     $private.XHRConnection = function XHRConnection (type, url, data, options) {
       var xhr = new XMLHttpRequest()
@@ -565,7 +592,7 @@
       return $private.XHRConnection(
         options.method,
         options.url,
-        options.data || null,
+        $private.maybeData(options.data),
         options
       )
     }
@@ -581,7 +608,7 @@
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 04 2016 23:03:53 GMT-0300 (BRT)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sat Mar 05 2016 10:21:41 GMT-0300 (BRT)
 </div>
 </div>
 <script src="../prettify.js"></script>
