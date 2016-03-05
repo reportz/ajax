@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">74.84</p>
+      <p class="stat">74.74</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">161</p>
+      <p class="stat">168</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,7 +62,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">45.43</p>
+      <p class="stat">44.13</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
@@ -89,167 +89,174 @@
 
 <div class="container">
   <div class="row">
-    <textarea id="file-source" class="col-md-12">;(function( root, factory ) {
-  &#039;use strict&#039;;
+    <textarea id="file-source" class="col-md-12">;(function (root, factory) {
+  &#039;use strict&#039;
   /* istanbul ignore next */
-  if( typeof define === &#039;function&#039; &amp;&amp; define.amd ) {
-    define( &#039;ajax&#039;, factory );
+  if (typeof define === &#039;function&#039; &amp;&amp; define.amd) {
+    define(&#039;ajax&#039;, factory)
   }
-  else if( typeof exports === &#039;object&#039; ) {
-    exports = module.exports = factory();
-  }
-  else {
-    root.Ajax = factory();
-    root.ajax = factory();
-  }
-})(this, function() {
-  &#039;use strict&#039;;
+  else if (typeof exports === &#039;object&#039;) {
+    exports = module.exports = factory()
+  } else {
+    // @deprecated
+    root.Ajax = factory()
 
-  function Ajax(options) {
-    var $public = {};
-    var $private = {};
+    root.ajax = factory()
+  }
+})(this, function () {
+  &#039;use strict&#039;
 
-    if(this !== undefined) {
-      console.warn(&#039;Instance with `new` is deprecated. This will be removed in `v2.0.0` version.&#039;);
+  function Ajax (options) {
+    var $public = {}
+    var $private = {}
+
+    if (this !== undefined) {
+      console.warn(&#039;Instance with `new` is deprecated. This will be removed in `v2.0.0` version.&#039;)
     }
 
-    if(this instanceof Ajax) {
-      console.warn(&#039;Ajax constructor is deprecated. This will be removed in `v2.0.0`. Use ajax (lowercase version) without `new` keyword instead&#039;);
+    if (this instanceof Ajax) {
+      console.warn(&#039;Ajax constructor is deprecated. This will be removed in `v2.0.0`. Use ajax (lowercase version) without `new` keyword instead&#039;)
     }
 
     $private.methods = {
-      then: function() {},
-      catch: function() {},
-      always: function() {},
+      then: function () {},
+      catch: function () {},
+      always: function () {},
 
       // @deprecated
-      done: function() {},
-      error: function() {}
-    };
+      done: function () {},
+      error: function () {}
+    }
 
-    options = options || {};
+    options = options || {}
 
-    $public.get = function get( url ) {
-      return $private.XHRConnection( &#039;GET&#039;, url, null, options );
-    };
+    $public.get = function get (url) {
+      return $private.XHRConnection(&#039;GET&#039;, url, null, options)
+    }
 
-    $public.post = function post( url, data ) {
-      return $private.XHRConnection( &#039;POST&#039;, url, data, options );
-    };
+    $public.post = function post (url, data) {
+      return $private.XHRConnection(&#039;POST&#039;, url, data, options)
+    }
 
-    $public.put = function put( url, data ) {
-      return $private.XHRConnection( &#039;PUT&#039;, url, data, options );
-    };
+    $public.put = function put (url, data) {
+      return $private.XHRConnection(&#039;PUT&#039;, url, data, options)
+    }
 
-    $public.delete = function del( url, data ) {
-      return $private.XHRConnection( &#039;DELETE&#039;, url, data, options );
-    };
+    $public.delete = function del (url, data) {
+      return $private.XHRConnection(&#039;DELETE&#039;, url, data, options)
+    }
 
-    $private.XHRConnection = function XHRConnection( type, url, data, options ) {
-      var xhr = new XMLHttpRequest();
-      xhr.open( type, url || &#039;&#039;, true );
-      $private.setHeaders(xhr, options.headers);
-      xhr.addEventListener( &#039;readystatechange&#039;, $private.ready, false );
-      xhr.send( $private.objectToQueryString( data ) );
-      return $private.promises();
-    };
+    $private.XHRConnection = function XHRConnection (type, url, data, options) {
+      var xhr = new XMLHttpRequest()
+      xhr.open(type, url || &#039;&#039;, true)
+      $private.setHeaders(xhr, options.headers)
+      xhr.addEventListener(&#039;readystatechange&#039;, $private.ready, false)
+      xhr.send($private.objectToQueryString(data))
+      return $private.promises()
+    }
 
-    $private.setHeaders = function setHeaders(xhr, headers) {
-      headers = headers || {};
+    $private.setHeaders = function setHeaders (xhr, headers) {
+      headers = headers || {}
 
-      if(!$private.hasContentType(headers)) {
-        headers[&#039;Content-Type&#039;] = &#039;application/x-www-form-urlencoded&#039;;
+      if (!$private.hasContentType(headers)) {
+        headers[&#039;Content-Type&#039;] = &#039;application/x-www-form-urlencoded&#039;
       }
 
-      Object.keys(headers).forEach(function(name) {
-        xhr.setRequestHeader(name, headers[name]);
-      });
-    };
+      Object.keys(headers).forEach(function (name) {
+        xhr.setRequestHeader(name, headers[name])
+      })
+    }
 
-    $private.hasContentType = function hasContentType(headers) {
-      return Object.keys(headers).some(function(name) {
-        return name.toLowerCase() === &#039;content-type&#039;;
-      });
-    };
+    $private.hasContentType = function hasContentType (headers) {
+      return Object.keys(headers).some(function (name) {
+        return name.toLowerCase() === &#039;content-type&#039;
+      })
+    }
 
-    $private.ready = function ready() {
-      var xhr = this;
-      if( xhr.readyState === xhr.DONE ) {
-        xhr.removeEventListener( &#039;readystatechange&#039;, $private.ready, false );
+    $private.ready = function ready () {
+      var xhr = this
+      if (xhr.readyState === xhr.DONE) {
+        xhr.removeEventListener(&#039;readystatechange&#039;, $private.ready, false)
         $private.methods.always
-          .apply( $private.methods, $private.parseResponse( xhr ) );
-        if( xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300 ) {
+          .apply($private.methods, $private.parseResponse(xhr))
+        if (xhr.status &gt;= 200 &amp;&amp; xhr.status &lt; 300) {
           $private.methods.then
-            .apply( $private.methods, $private.parseResponse( xhr ) );
+            .apply($private.methods, $private.parseResponse(xhr))
           // @deprecated
           $private.methods.done
-            .apply( $private.methods, $private.parseResponse( xhr ) );
+            .apply($private.methods, $private.parseResponse(xhr))
         } else {
           $private.methods.catch
-            .apply( $private.methods, $private.parseResponse( xhr ) );
+            .apply($private.methods, $private.parseResponse(xhr))
           // @deprecated
           $private.methods.error
-            .apply( $private.methods, $private.parseResponse( xhr ) );
+            .apply($private.methods, $private.parseResponse(xhr))
         }
       }
-    };
+    }
 
-    $private.parseResponse = function parseResponse( xhr ) {
-      var result;
-      try { result = JSON.parse( xhr.responseText ); }
-      catch( e ) { result = xhr.responseText; }
-      return [ result, xhr ];
-    };
+    $private.parseResponse = function parseResponse (xhr) {
+      var result
+      try {
+        result = JSON.parse(xhr.responseText)
+      } catch(e) {
+        result = xhr.responseText
+      }
+      return [ result, xhr ]
+    }
 
-    $private.promises = function promises() {
-      var allPromises = {};
-      Object.keys( $private.methods ).forEach(function( method ) {
-        allPromises[ method ] = $private.generatePromise.call( this, method );
-      }, this );
-      return allPromises;
-    };
+    $private.promises = function promises () {
+      var allPromises = {}
+      Object.keys($private.methods).forEach(function (method) {
+        allPromises[ method ] = $private.generatePromise.call(this, method)
+      }, this)
+      return allPromises
+    }
 
-    $private.generatePromise = function generatePromise( method ) {
-      return function( callback ) {
-        $private.generateDeprecatedMessage(method);
-        $private.methods[ method ] = callback;
-        return this;
-      };
-    };
+    $private.generatePromise = function generatePromise (method) {
+      return function (callback) {
+        $private.generateDeprecatedMessage(method)
+        $private.methods[ method ] = callback
+        return this
+      }
+    }
 
-    $private.generateDeprecatedMessage = function generateDeprecatedMessage(method) {
-      var deprecatedMessage = &#039;@fdaciuk/ajax: `%s` is deprecated and will be removed in v2.0.0. Use `%s` instead.&#039;;
+    $private.generateDeprecatedMessage = function generateDeprecatedMessage (method) {
+      var deprecatedMessage = &#039;@fdaciuk/ajax: `%s` is deprecated and will be removed in v2.0.0. Use `%s` instead.&#039;
       switch (method) {
         case &#039;done&#039;:
-          console.warn(deprecatedMessage, &#039;done&#039;, &#039;then&#039;);
-          break;
+          console.warn(deprecatedMessage, &#039;done&#039;, &#039;then&#039;)
+          break
         case &#039;error&#039;:
-          console.warn(deprecatedMessage, &#039;error&#039;, &#039;catch&#039;);
+          console.warn(deprecatedMessage, &#039;error&#039;, &#039;catch&#039;)
       }
-    };
+    }
 
-    $private.objectToQueryString = function objectToQueryString( data ) {
-      return $private.isObject( data )
-        ? $private.getQueryString( data )
-        : data;
-    };
+    $private.objectToQueryString = function objectToQueryString (data) {
+      return $private.isObject(data)
+        ? $private.getQueryString(data)
+        : data
+    }
 
-    $private.getQueryString = function getQueryString( object ) {
-      return Object.keys( object ).map( function( item ) {
-        return encodeURIComponent( item )
-          + &#039;=&#039; + encodeURIComponent( object[ item ] );
-      }).join( &#039;&amp;&#039; );
-    };
+    $private.getQueryString = function getQueryString (object) {
+      return Object.keys(object).map(function (item) {
+        return [
+          encodeURIComponent(item),
+          &#039;=&#039;,
+          encodeURIComponent(object[ item ])
+        ].join(&#039;&#039;)
+      }).join(&#039;&amp;&#039;)
+    }
 
-    $private.isObject = function isObject( data ) {
-      return &#039;[object Object]&#039; === Object.prototype.toString.call( data );
-    };
+    $private.isObject = function isObject (data) {
+      return &#039;[object Object]&#039; === Object.prototype.toString.call(data)
+    }
 
-    return $public;
+    return $public
   }
 
-  return Ajax;
-});</textarea>
+  return Ajax
+})</textarea>
   </div>
 </div>
 
