@@ -11,7 +11,7 @@ FN:46,(anonymous_8)
 FN:49,maybeData
 FN:55,(anonymous_10)
 FN:56,(anonymous_11)
-FN:66,XHRConnection
+FN:66,xhrConnection
 FN:75,setHeaders
 FN:82,(anonymous_14)
 FN:87,hasContentType
@@ -40,7 +40,7 @@ FNDA:2,(anonymous_8)
 FNDA:19,maybeData
 FNDA:68,(anonymous_10)
 FNDA:18,(anonymous_11)
-FNDA:19,XHRConnection
+FNDA:19,xhrConnection
 FNDA:19,setHeaders
 FNDA:19,(anonymous_14)
 FNDA:19,hasContentType
