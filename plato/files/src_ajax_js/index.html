@@ -44,11 +44,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Maintainability <a href="http://blogs.msdn.com/b/codeanalysis/archive/2007/11/20/maintainability-index-range-and-meaning.aspx"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="A value between 0 and 100 that represents the relative ease of maintaining the code. A high value means better maintainability." data-original-title="Maintainability Index"  data-container="body"></i></a></h2>
-      <p class="stat">74.53</p>
+      <p class="stat">74.39</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Lines of code <i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Source Lines of Code / Logical Lines of Code" data-original-title="SLOC/LSLOC" data-container="body"></i></h2>
-      <p class="stat">140</p>
+      <p class="stat">142</p>
     </div>
   </div>
   <div class="row historical">
@@ -62,11 +62,11 @@
   <div class="row">
     <div class="col-md-6">
       <h2 class="header">Difficulty  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="The difficulty measure is related to the difficulty of the program to write or understand." data-original-title="Difficulty" data-container="body"></i></a></h2>
-      <p class="stat">34.66</p>
+      <p class="stat">35.05</p>
     </div>
     <div class="col-md-6">
       <h2 class="header">Estimated Errors  <a href="http://en.wikipedia.org/wiki/Halstead_complexity_measures"><i class="icon icon-info-sign" rel="popover" data-placement="top" data-trigger="hover" data-content="Halstead's delivered bugs is an estimate for the number of errors in the implementation." data-original-title="Delivered Bugs" data-container="body"></i></a></h2>
-      <p class="stat">1.30</p>
+      <p class="stat">1.34</p>
     </div>
   </div>
 </div>
@@ -144,9 +144,9 @@
     var featuredUrl = getUrlWithData(url, data, type)
     xhr.open(type, featuredUrl, true)
     xhr.withCredentials = options.hasOwnProperty(&#039;withCredentials&#039;)
-    setHeaders(xhr, options.headers)
+    setHeaders(xhr, options.headers, data)
     xhr.addEventListener(&#039;readystatechange&#039;, ready(promiseMethods, xhr), false)
-    xhr.send(objectToQueryString(data))
+    xhr.send(isObject(data) ? JSON.stringify(data) : data)
     promiseMethods.abort = function () {
       return xhr.abort()
     }
@@ -162,10 +162,12 @@
     return url + queryStringSeparator + dataAsQueryString
   }
 
-  function setHeaders (xhr, headers) {
+  function setHeaders (xhr, headers, data) {
     headers = headers || {}
     if (!hasContentType(headers)) {
-      headers[&#039;Content-Type&#039;] = &#039;application/x-www-form-urlencoded&#039;
+      headers[&#039;Content-Type&#039;] = isObject(data)
+        ? &#039;application/json&#039;
+        : &#039;application/x-www-form-urlencoded&#039;
     }
     Object.keys(headers).forEach(function (name) {
       (headers[name] &amp;&amp; xhr.setRequestHeader(name, headers[name]))
